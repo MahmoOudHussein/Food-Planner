@@ -71,7 +71,7 @@
         />
 
     <Button
-        android:id="@+id/bt_login"
+        android:id="@+id/btn_login"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -97,8 +97,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.353"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_login" />
-
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/btn_login"
+        app:layout_constraintStart_toStartOf="@+id/btn_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
     <TextView
         android:id="@+id/tv_sign"
         android:layout_width="0dp"
@@ -108,10 +116,11 @@
         android:text="@string/sign_up"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_donthave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toEndOf="@+id/tv_donthave"
-        app:layout_constraintTop_toBottomOf="@+id/bt_login" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <TextView
         android:id="@+id/textView4"

@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     tools:context=".signUp.SignUp">
+
     <EditText
         android:id="@+id/et_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/edit_background"
         android:drawableStart="@drawable/email_icon"
