@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.login.Login;
+import com.example.foodplanner.signUp.SignUp;
 
 public class SplashScreen extends AppCompatActivity {
 

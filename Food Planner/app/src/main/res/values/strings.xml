@@ -6,7 +6,14 @@
     <string name="confirm_password">confirm password</string>
     <string name="sign_up">sign up</string>
     <string name="login">login</string>
-    <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="login_screen">Login screen</string>
     <string name="sign_in_by">sign in using</string>
+    <string name="dont_have_an_account">dont have an account?</string>
+    <string name="default_web_client_id">860464898961-pqhebtge15eno3ovk8i6rfmu91l9k8aj.apps.googleusercontent.com</string>
+    <string name="home">home</string>
+    <string name="search">search</string>
+    <string name="favorite">favorite</string>
+    <string name="calender">calender</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
