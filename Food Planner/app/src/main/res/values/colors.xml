@@ -5,4 +5,5 @@
     <color name="colorPrimary">#D8FF5E00</color>
 
     <color name="main_color">#D8FF5E00</color>
+    <color name="remove_button">#C4392F</color>
 </resources>

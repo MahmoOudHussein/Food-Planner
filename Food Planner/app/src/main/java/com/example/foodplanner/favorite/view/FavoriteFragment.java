@@ -1,66 +1,99 @@
 package com.example.foodplanner.favorite.view;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.R;
+import com.example.foodplanner.db.LocalDataSourceImpl;
+import com.example.foodplanner.favorite.pressenter.FavoritePresenter;
+import com.example.foodplanner.favorite.pressenter.IFavoritePresenter;
+import com.example.foodplanner.model.Meal;
+import com.example.foodplanner.model.RepositoryImpl;
+import com.example.foodplanner.network.RemoteDataSourceImpl;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavoriteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FavoriteFragment extends Fragment {
+import java.util.ArrayList;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class FavoriteFragment extends Fragment implements OnMealClickListener {
+    private View view;
+    private RecyclerView recyclerView;
+    private FavoriteAdapter favoriteAdapter;
+    LottieAnimationView animationView;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_favorite, container, false);
+        animationView = view.findViewById(R.id.lottie_favorite);
 
-    public FavoriteFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavoriteFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavoriteFragment newInstance(String param1, String param2) {
-        FavoriteFragment fragment = new FavoriteFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        recyclerView = view.findViewById(R.id.favorite_recyclerview);
+
+        IFavoritePresenter presenter = new FavoritePresenter(
+                RepositoryImpl.getInstance(RemoteDataSourceImpl.getInstance(),
+                        LocalDataSourceImpl.getInstance(requireContext()))
+        );
+
+        presenter.observeFavMeals().subscribe(
+                meals -> {
+                    ArrayList<Meal> arrayList = new ArrayList<>();
+                    for (Meal meal : meals) {
+                        if (meal.getFavourite() == null || meal.getFavourite()) {
+                            arrayList.add(meal);
+                        }
+                    }
+                    if (meals.isEmpty()) {
+                        recyclerView.setVisibility(View.GONE);
+                        animationView.setVisibility(View.VISIBLE);
+                        animationView.playAnimation();
+                        moveAnimationView();
+
+                    } else {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        animationView.setVisibility(View.GONE);
+                        favoriteAdapter.setList(meals);
+                    }
+                },
+                Throwable::printStackTrace
+        );
+
+        favoriteAdapter = new FavoriteAdapter(getContext(), new ArrayList<>(), this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(favoriteAdapter);
+
+        return view;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onMealClicked(Meal meal) {
+    }
+    private void moveAnimationView() {
+        TranslateAnimation animation = new TranslateAnimation(0.0f, 0.0f, -50.0f, 50.0f);
+        animation.setDuration(1000);
+        animation.setRepeatCount(Animation.INFINITE);
+        animation.setRepeatMode(Animation.REVERSE);
+        animationView.startAnimation(animation);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+    public void onRemoveClicked(Meal meal) {
+        IFavoritePresenter presenter = new FavoritePresenter(
+                RepositoryImpl.getInstance(
+                        RemoteDataSourceImpl.getInstance(),
+                        LocalDataSourceImpl.getInstance(requireContext())
+                )
+        );
+        presenter.onRemoveClicked(meal);
+        Toast.makeText(getContext(), meal.getName()+" removed ", Toast.LENGTH_SHORT).show();
+
     }
+
 }

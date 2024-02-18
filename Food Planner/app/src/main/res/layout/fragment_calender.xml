@@ -1,17 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".calender.view.CalenderFragment">
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/saturday"
+        android:textStyle="bold"
+        android:id="@+id/saturdayButton"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_margin="8dp"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/calender"
-        android:gravity="center"
-        />
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/sunday"
+        android:id="@+id/sundayButton"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
 
-</FrameLayout>
+        android:layout_margin="8dp"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/monday"
+        android:id="@+id/mondayButton"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_margin="8dp"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tuesday"
+        android:id="@+id/tuesdayButton"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_margin="8dp"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/wednesday"
+        android:id="@+id/wednesdayButton"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_margin="8dp"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/thursday"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:id="@+id/thursdayButton"
+        android:textColor="@color/white"
+        android:layout_margin="8dp"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/friday"
+        android:id="@+id/fridayButton"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:layout_margin="8dp"/>
+
+
+
+
+</LinearLayout>

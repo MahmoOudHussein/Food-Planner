@@ -16,4 +16,21 @@
     <string name="calender">calender</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="categories">categories</string>
+    <string name="your_meal">Random meal</string>
+    <string name="how_to_prepare">How to prepare</string>
+    <string name="ingredients">ingredients</string>
+    <string name="ingredient_name">ingredient name</string>
+    <string name="remove">remove</string>
+    <string name="friday">Friday</string>
+    <string name="thursday">Thursday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="monday">Monday</string>
+    <string name="sunday">Sunday</string>
+    <string name="saturday">Saturday</string>
+    <string name="search_by_ingredient">Search by Ingredient</string>
+    <string name="search_by_area">Search by Area</string>
+    <string name="search_by_category">Search by Category</string>
+    <string name="search_by_name">Search by Name</string>
 </resources>
