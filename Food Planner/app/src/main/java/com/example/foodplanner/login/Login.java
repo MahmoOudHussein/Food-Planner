@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -46,6 +47,7 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth auth;
     GoogleSignInClient client;
     CardView googleSignIn;
+    public static final String SHARED_PREF = "sharedPrefs";
 
 
     @Override
@@ -59,6 +61,7 @@ public class Login extends AppCompatActivity {
         builder.requestEmail();
         GoogleSignInOptions options= builder.build();
         client= GoogleSignIn.getClient(this,options);
+        checkBox();
 
         signUpTv = findViewById(R.id.tv_sign);
         emailEt = findViewById(R.id.tb_email);
@@ -72,6 +75,7 @@ public class Login extends AppCompatActivity {
                 startActivityForResult(intent, 1234);
             }
         });
+
 
 
         signUpTv.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +99,19 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+    private void checkBox() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+        String isLoggedIn = sharedPreferences.getString("name", "");
+
+        if (isLoggedIn.equals("true")) {
+            Toast.makeText(Login.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Login.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
 
     private void loginUser() {
         String email = emailEt.getText().toString().trim();
@@ -151,8 +168,13 @@ public class Login extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    SharedPreferences sharedPreferences=getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+                                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                                    editor.putString("name","true");
+                                    editor.apply();
                                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                                     startActivity(intent);
+
                                 } else {
                                     Toast.makeText(Login.this, "Google Sign-In Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                 }

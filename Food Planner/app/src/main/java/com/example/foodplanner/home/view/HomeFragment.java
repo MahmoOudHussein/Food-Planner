@@ -2,6 +2,11 @@
 
 
 
+    import android.app.AlertDialog;
+    import android.content.Context;
+    import android.content.DialogInterface;
+    import android.content.Intent;
+    import android.content.SharedPreferences;
     import android.os.Bundle;
 
     import androidx.fragment.app.Fragment;
@@ -21,6 +26,7 @@
     import com.example.foodplanner.db.LocalDataSourceImpl;
     import com.example.foodplanner.detailesOfMeal.view.MealFragment;
     import com.example.foodplanner.home.pressenter.HomePresenter;
+    import com.example.foodplanner.login.Login;
     import com.example.foodplanner.model.Category;
     import com.example.foodplanner.model.CategoryResponse;
     import com.example.foodplanner.model.Meal;
@@ -40,12 +46,41 @@
         private HomeAdapter mAdapter;
         private Meal mealOfTheDay;
         private HomePresenter presenter;
+        ImageView logout;
+        public static final String SHARED_PREF = "sharedPrefs";
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             view = inflater.inflate(R.layout.fragment_home, container, false);
             initializeViews();
             initializePresenter();
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(requireContext())
+                            .setTitle("Logout")
+                            .setMessage("Are you sure you want to logout?")
+                            .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("name", "");
+                                    editor.apply();
+
+                                    Intent intent = new Intent(getActivity(), Login.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
+                }
+            });
+
+
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -75,6 +110,7 @@
             recyclerView.setLayoutManager(layoutManager);
             mAdapter = new HomeAdapter(getContext(), categories, this);
             recyclerView.setAdapter(mAdapter);
+            logout=view.findViewById(R.id.logout);
         }
 
         private void initializePresenter() {
