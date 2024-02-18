@@ -33,4 +33,5 @@
     <string name="search_by_area">Search by Area</string>
     <string name="search_by_category">Search by Category</string>
     <string name="search_by_name">Search by Name</string>
+    <string name="guest">Guest</string>
 </resources>
